@@ -22,10 +22,7 @@ To empower developers and testers on blockchain networks by providing an automat
 - Extend support for multiple cooldown periods based on user roles.
 
 ## Contract Details
+0xd1Be76470E3EcFD2d0C9B1860029F7c5CC4c2154
 
-*Contract address:* `TO_BE_FILLED_BY_JUDY`
 
-*Network:* Core Blockchain Testnet (chainId 1114)
 
-*Deployed by:* `TO_BE_FILLED_BY_JUDY`
-![Uploading image.png…]()
