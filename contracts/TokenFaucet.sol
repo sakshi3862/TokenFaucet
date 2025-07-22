@@ -16,8 +16,11 @@ contract TokenFaucet {
             block.timestamp - lastDripTime[msg.sender] >= cooldown,
             "Wait before requesting again"
         );
+        require(address(this).balance >= dripAmount, "Faucet is empty");
         lastDripTime[msg.sender] = block.timestamp;
-        payable(msg.sender).transfer(dripAmount);
+
+        (bool success, ) = msg.sender.call{value: dripAmount}("");
+        require(success, "Transfer failed");
     }
 
     function setDripAmount(uint256 _amount) external onlyOwner {
@@ -28,6 +31,15 @@ contract TokenFaucet {
         payable(owner).transfer(address(this).balance);
     }
 
+    // 🆕 Added function
+    function checkNextEligibleTime(address user) external view returns (uint256 secondsRemaining) {
+        if (block.timestamp >= lastDripTime[user] + cooldown) {
+            return 0; // Eligible now
+        } else {
+            return (lastDripTime[user] + cooldown) - block.timestamp;
+        }
+    }
+
     modifier onlyOwner() {
         require(msg.sender == owner, "Not contract owner");
         _;
@@ -35,3 +47,4 @@ contract TokenFaucet {
 
     receive() external payable {}
 }
+// "Added one function suggested by ChatGPT"
