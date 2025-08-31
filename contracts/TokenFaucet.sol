@@ -48,3 +48,7 @@ contract TokenFaucet {
     receive() external payable {}
 }
 // "Added one function suggested by ChatGPT"
+function setCooldown(uint256 _cooldown) external onlyOwner {
+    cooldown = _cooldown;
+} // "Added new function"
+
